@@ -55,7 +55,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Install gitleaks
         run: |
-          curl -sSfL https://raw.githubusercontent.com/mergermarket/gitleaks/master/install.sh | sh
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sh
+          chmod +x gitleaks
           sudo mv gitleaks /usr/local/bin/gitleaks
 
       - name: Run gitleaks
