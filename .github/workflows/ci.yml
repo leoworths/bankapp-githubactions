@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: mvn clean compile
       - name: Run tests
-        run: mvn test -DtestFailureIgnore=true
+        run: mvn test 
 #security scan with trivy 
   security-scan:
     runs-on: ubuntu-latest
