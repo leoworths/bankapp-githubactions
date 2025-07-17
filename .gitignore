@@ -1,0 +1,56 @@
+# Maven
+target/
+*.class
+*.jar
+
+# Maven Wrapper
+!.mvn/wrapper/maven-wrapper.jar
+
+# Logs and temp files
+*.log
+*.tmp
+*~
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# NetBeans
+nbbuild/
+dist/
+nbdist/
+nbproject/private/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Others
+HELP.md
+
+
+
+#terraform
+.terraform/*
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+.terraform.lock.hcl*
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+
+vault.key
+
+eks-rbac.md 
+
