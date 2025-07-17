@@ -47,6 +47,21 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results.sarif
-  
-
-
+#install gitleaks 
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install gitleaks
+        run: |
+          curl -sSL https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
+          chmod +x gitleaks
+      - name: Run gitleaks
+        run: gitleaks detect source . -r gitleaks-report.json -f json
+      - name: Upload gitleaks report to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report 
+          path: gitleaks-report.json
+          
