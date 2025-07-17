@@ -19,9 +19,15 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
-      - name: Build with Maven
-        run: mvn clean install
-#security scan with trivy
+      - name: Install dependencies
+        run: mvn clean compile
+
+      - name: Run tests
+        run: mvn test
+
+      - name: Build the project
+        run: mvn package -DskipTests
+
 
 
    
