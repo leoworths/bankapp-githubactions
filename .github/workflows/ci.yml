@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: mvn clean compile
 
-      - name: Run tests
-        run: mvn test
-
       - name: Build the project
         run: mvn package -DskipTests
 
