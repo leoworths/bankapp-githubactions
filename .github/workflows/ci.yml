@@ -55,10 +55,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install gitleaks
         run: |
-          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sh
-          chmod +x gitleaks
-          sudo mv gitleaks /usr/local/bin/gitleaks
-
+          sudo apt install -y gitleaks
       - name: Run gitleaks
         run: gitleaks detect --source . -r gitleaks-report.json -f json
       - name: Upload gitleaks report to GitHub
