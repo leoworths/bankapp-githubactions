@@ -160,7 +160,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
-        
+          tags: |
+            type=sha,format=long
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -168,12 +169,16 @@ jobs:
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+#Set image tag for scanning
+      - name: Set image tag for scanning
+        id: set-image-tag
+        run: echo "image_tag=$(echo ${{ steps.meta.outputs.tags }} | cut -d ':' -f 2)" >> $GITHUB_OUTPUT
 
 #Trivy Vulnerability Scanner 
       - name: Run Trivy vulnerability scanner on Docker image
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ghcr.io/${{ github.repository }}:${{ steps.meta.outputs.tags }}
+          image-ref: ghcr.io/${{ github.repository }}:${{ steps.set-image-tag.outputs.image_tag }}
           format: 'sarif'
           output: 'trivy-docker-results.sarif'
           severity: 'HIGH,CRITICAL'
