@@ -174,7 +174,7 @@ jobs:
       - name: Run Trivy vulnerability scanner on Docker image
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ghcr.io/${{ github.repository }}
+          image-ref: ghcr.io/${{ github.repository }}:sha-${{github.sha}}
           format: 'sarif'
           output: 'trivy-docker-results.sarif'
           severity: 'HIGH,CRITICAL'
