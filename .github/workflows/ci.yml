@@ -26,8 +26,6 @@ jobs:
         run: mvn clean compile
       - name: Run tests
         run: mvn test 
-      - name: Run verify
-        run: mvn clean verify
 #security scan with trivy 
   security-scan:
     runs-on: ubuntu-latest
@@ -72,6 +70,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+      - name: Run verify
+        run: mvn clean verify
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5.2.0
         env:
@@ -82,8 +88,10 @@ jobs:
           args: >
             -Dsonar.projectKey=bankapp
             -Dsonar.projectName=bankapp
-            -Dsonar.sources=.
+            -Dsonar.sources=src/main/java
+            -Dsonar.tests=src/test/java
             -Dsonar.java.binaries=target/classes
+            -Dsonar.java.test.binaries=target/test-classes
 #Quality gate check status
   quality-gate:
     runs-on: ubuntu-latest
