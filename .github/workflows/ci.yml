@@ -81,8 +81,7 @@ jobs:
             -Dsonar.projectKey=bankapp
             -Dsonar.projectName=bankapp
             -Dsonar.sources=.
-            -Dsonar.java.binaries=target/classes
-            -Dsonar.java.test.binaries=target/test-classes
+            -Dsonar.java.binaries=target
 #Quality gate check status
   quality-gate:
     runs-on: ubuntu-latest
