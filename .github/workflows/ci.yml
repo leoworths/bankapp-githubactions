@@ -179,7 +179,7 @@ jobs:
       - name: Run Trivy vulnerability scanner on Docker image
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{ env.IMAGE_NAME }}:sha-${{ env.IMAGE_TAG }}
+          image-ref: ${{ fromJSON('["' + steps.meta.outputs.tags + '"]')[0] }}
           format: 'sarif'
           output: 'trivy-docker-results.sarif'
           severity: 'HIGH,CRITICAL'
