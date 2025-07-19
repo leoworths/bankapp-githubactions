@@ -167,6 +167,8 @@ jobs:
           images: ${{ env.IMAGE_NAME }}
           tags: |
             type=sha, format=long
+            type=ref,event=branch
+            latest
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -179,7 +181,8 @@ jobs:
       - name: Run Trivy vulnerability scanner on Docker image
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{steps.meta.outputs.tags }}
+          image-ref: ${{ env.IMAGE_NAME }}:sha-${{ env.IMAGE_TAG }}
+          scan-type: 'image'
           format: 'sarif'
           output: 'trivy-docker-results.sarif'
           severity: 'HIGH,CRITICAL'
@@ -191,4 +194,4 @@ jobs:
       - name: Set output
         id: set_output
         run: |
-          echo "image_tag=sha-${{ env.IMAGE_TAG }}" >> $GITHUB_OUTPUT
+          echo "image_tag=sha-${{ env.IMAGE_TAG }} | cut -c1-7" >> $GITHUB_OUTPUT
